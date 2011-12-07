@@ -1,3 +1,6 @@
+include_directories( ./fastcgi/include )
+
+
 #file( GLOB sources *.cc )
 file( GLOB fastcgi_sources ./fastcgi/libfcgi/fcgio.cpp ./fastcgi/libfcgi/fcgi_stdio.c ./fastcgi/libfcgi/fcgiapp.c ./fastcgi/libfcgi/os_unix.c )
 add_executable( ../webapp ./server/main.cc ${fastcgi_sources} )
@@ -14,7 +17,7 @@ add_executable( ../webapp ./server/main.cc ${fastcgi_sources} )
 #ENDIF()
 #INCLUDE_DIRECTORIES( ${FCGI_INCLUDE_DIR} )
 
-include_directories( ./fastcgi/include )
+
 
 
 #target_link_libraries( ../webapp ${fcgi_LIBRARIES} )
