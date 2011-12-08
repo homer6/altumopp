@@ -1,6 +1,7 @@
-#include "../geoip_server.h"
-#include <stdlib.h>
+//#include "../geoip_server.h"
+//#include <stdlib.h>
 
+/*
 using namespace Altumo;
 using namespace std;
 
@@ -31,4 +32,16 @@ int main( int argc, char** argv ){
 }
 
 
+*/
 
+
+#include <fcgi_stdio.h>
+int main( int argc, char *argv[] ){
+
+   while( FCGI_Accept() >= 0 ) {
+      printf( "Content-Type: text/plain\n\n" );
+      printf( "Hello world in Cn" );
+   }
+   return 0;
+
+}

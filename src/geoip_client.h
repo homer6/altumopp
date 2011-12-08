@@ -1,3 +1,4 @@
+/*
 #ifndef GEOIP_CLIENT_H
 #define GEOIP_CLIENT_H
 
@@ -42,3 +43,4 @@
     }
 
 #endif //GEOIP_CLIENT_H
+*/

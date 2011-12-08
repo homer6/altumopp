@@ -12,7 +12,5 @@ tests/Makefile
 tests/cmake_install.cmake
 CPackConfig.cmake
 CPackSourceConfig.cmake
-geoipd
-src/geoipd.dir/
-geoip
-src/geoip.dir/
+src/webapp.dir/
+webapp
