@@ -1,0 +1,116 @@
+
+import modules ;
+
+#use-project /boost/ : $(boost-root) ;
+
+local DEFINES ;
+
+if [ MATCH "^(--build-cgi)" : [ modules.peek : ARGV ] ]
+{ # compile library
+  DEFINES = <define>BOOST_CGI_BUILD_LIB ;
+} 
+
+# --------------------------------
+rule tag ( name : type ? : property-set )
+{
+    if $(type) in STATIC_LIB SHARED_LIB IMPORT_LIB
+    {
+        if $(layout) = versioned
+        {
+            local result = [ common.format-name
+                <base> <toolset> <threading> <runtime> # -$(BOOST_VERSION_TAG)
+                # -$(BUILD_ID)
+                : $(name) : $(type) : $(property-set) ] ;
+            
+            # Optionally add version suffix.
+            # On NT, library with version suffix won't be recognized
+            # by linkers. On CYGWIN, we get strage duplicate symbol
+            # errors when library is generated with version suffix.
+            # On OSX, version suffix is not needed -- the linker expets
+            # libFoo.1.2.3.dylib format.
+            # AIX linkers don't accept version suffixes either.
+            # Pgi compilers can't accept library with version suffix
+            #if $(type) = SHARED_LIB &&
+            #  ( ! ( [ $(property-set).get <target-os> ] in windows cygwin darwin aix ) &&
+            #    ! ( [ $(property-set).get <toolset> ] in pgi ) )
+            #{
+            #    result = $(result).$(BOOST_VERSION)  ;
+            #}
+            
+            return $(result) ;
+        }
+        else
+        {
+            return [ common.format-name
+                <base> <threading> <runtime> # -$(BUILD_ID)
+                : $(name) : $(type) : $(property-set) ] ;
+        }
+    }
+}
+
+# --------------------------------
+
+project boost/cgi
+  : build-dir
+      $(top)/bin.v2
+  : requirements
+      <include>$(top)
+      <include>$(boost-root)
+      <library>/boost//thread/
+      <library>/boost//system/
+      <library>/boost//regex/
+      <library>/boost//filesystem/
+      <library>/boost//date_time/
+      <define>_CRT_SECURE_NO_WARNINGS
+      <define>_SCL_SECURE_NO_WARNINGS
+      $(DEFINES)
+  : usage-requirements
+      <include>$(top)
+      <include>$(boost-root)
+      <library>/boost//thread/
+      <library>/boost//system/
+      <library>/boost//filesystem/
+      <library>/boost//regex/
+      <library>/boost//date_time/
+      <define>_CRT_SECURE_NO_WARNINGS
+      <define>_SCL_SECURE_NO_WARNINGS
+      <os>unix:<linkflags>-pthread
+      <linkflags>-pthread
+      #<tag>@$(__name__).tag
+      $(DEFINES)
+  ;
+
+if [ MATCH "^(--build-cgi)" : [ modules.peek : ARGV ] ]
+{ # compile the library
+  ECHO "Building CGI library" ;
+
+  # make BB recognise .ipp files as .cpp (source) files.
+  import type ;
+  type.register IPP : ipp : CPP ;
+
+  # library_sources.cpp includes all compilable source files.
+  SOURCES = $(top)/libs/cgi/src/library_sources.cpp ;
+
+  lib boost_cgi
+    :
+      $(SOURCES)
+    :
+      <define>BOOST_CGI_BUILD_LIB
+    ;
+}
+else
+{
+  alias boost_cgi ;
+
+  # make BB recognise .ipp files as .hpp (header) files.
+	import type ;
+	type.register IPP : ipp : HPP ;
+}
+
+install install
+  :
+    boost_cgi
+  :
+    <location>/usr/local/lib
+  ;
+
