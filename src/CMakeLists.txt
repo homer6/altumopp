@@ -2,14 +2,16 @@ include_directories( ./fastcgi/include )
 
 
 #file( GLOB sources *.cc )
-file( GLOB fastcgi_sources ./fastcgi/libfcgi/fcgio.cpp ./fastcgi/libfcgi/fcgi_stdio.c ./fastcgi/libfcgi/fcgiapp.c ./fastcgi/libfcgi/os_unix.c )
-add_executable( ../webapp ./server/main.cc ${fastcgi_sources} )
+#file( GLOB fastcgi_sources ./fastcgi/libfcgi/fcgio.cpp ./fastcgi/libfcgi/fcgi_stdio.c ./fastcgi/libfcgi/fcgiapp.c ./fastcgi/libfcgi/os_unix.c )
+add_executable( ../webapp ./server/main.cc )
 
 #add_executable( ../geoip ./client/main.cc ${sources} )
 
-#find_package( Boost 1.37 COMPONENTS system program_options regex thread REQUIRED )
-#find_package( fcgi )
-#include_directories( ${fcgi_INCLUDE_DIR} )
+find_package( Boost 1.42 COMPONENTS system program_options regex thread REQUIRED )
+include_directories( ${Boost_INCLUDE_DIR} )
+target_link_libraries( ../webapp ${Boost_LIBRARIES} )
+
+
 
 #FIND_PATH( FCGI_INCLUDE_DIR fastcgi.h )
 #IF( NOT FCGI_INCLUDE_DIR )
@@ -20,8 +22,8 @@ add_executable( ../webapp ./server/main.cc ${fastcgi_sources} )
 
 
 
-#target_link_libraries( ../webapp ${fcgi_LIBRARIES} )
-#target_link_libraries( ../geoip ${Boost_LIBRARIES} )
+
+
 
 # Set default compile flags for GCC
 if(CMAKE_COMPILER_IS_GNUCXX)
