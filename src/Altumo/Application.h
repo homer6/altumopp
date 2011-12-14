@@ -2,19 +2,26 @@
 #define ALTUMO_APPLICATION_H
 
 
+#include <boost/asio.hpp>
+
+#include "FastCgi/Server.h"
 
 namespace Altumo{
 
     class Application{
 
         public:
-            Application();
-            ~Application();
+
+            void run( short port ){
+
+                FastCgi::Server server( io_service, port );
+                io_service.run();
+
+            }
 
         protected:
-            FastCgiRecordType type;
-            unsigned long data_size;
-            char *data;
+            boost::asio::io_service io_service;
+
 
     };
 

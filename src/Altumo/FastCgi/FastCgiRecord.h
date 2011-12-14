@@ -2,6 +2,8 @@
 #define ALTUMO_FASTCGI_RECORD_H
 
 
+#include <boost/cstdint.hpp>
+
 
 namespace Altumo{
     namespace FastCgi{
@@ -28,7 +30,7 @@ namespace Altumo{
 
             protected:
                 FastCgiRecordType type;
-                unsigned long data_size;
+                uint32_t data_size;
                 char *data;
 
         };
