@@ -55,6 +55,13 @@ class session{
 
             if( !error ){
 
+                std::size_t buffer_size = boost::asio::buffer_size( boost::asio::buffer(data_) );
+
+                std::cout << bytes_transferred << " " << buffer_size << " " << data_ << std::endl;
+
+                output_log.write( data_, bytes_transferred );
+                output_log.flush();
+
                 boost::asio::async_write(
                     socket_,
                     boost::asio::buffer( data_, bytes_transferred ),
@@ -73,8 +80,6 @@ class session{
         void handle_write( const boost::system::error_code& error ){
 
             if( !error ){
-
-                output_log.write( data_, max_length );
 
                 socket_.async_read_some(
                     boost::asio::buffer( data_, max_length ),

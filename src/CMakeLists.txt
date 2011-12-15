@@ -7,7 +7,7 @@ add_executable( ../webapp ./server/main.cc )
 
 #add_executable( ../geoip ./client/main.cc ${sources} )
 
-find_package( Boost 1.42 COMPONENTS system program_options regex thread REQUIRED )
+find_package( Boost 1.40 COMPONENTS system program_options regex thread REQUIRED )
 include_directories( ${Boost_INCLUDE_DIR} )
 target_link_libraries( ../webapp ${Boost_LIBRARIES} )
 
