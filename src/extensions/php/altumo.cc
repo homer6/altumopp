@@ -1,3 +1,6 @@
+extern "C"{
+    #include "php.h"
+}
 #include "php_altumo.h"
 
 
@@ -37,7 +40,7 @@ zend_module_entry altumo_module_entry = {
 
 
 
-PHP_FUNCTION(altumo_run)
-{
+PHP_FUNCTION(altumo_run){
     RETURN_STRING("Altumo RUN", 1);
 }
+

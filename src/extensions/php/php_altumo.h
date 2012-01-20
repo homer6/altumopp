@@ -13,6 +13,9 @@
         #include "php.h"
     }
 
+    PHP_FUNCTION(altumo_run);
+
+
     extern zend_module_entry altumo_module_entry;
     #define phpext_altumo_ptr &altumo_module_entry
 
