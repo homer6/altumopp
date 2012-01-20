@@ -1,7 +1,6 @@
 #ifndef ALTUMO_FASTCGI_SERVER_H
 #define ALTUMO_FASTCGI_SERVER_H
 
-
 #include <boost/bind.hpp>
 #include <boost/asio.hpp>
 
@@ -51,7 +50,7 @@ namespace Altumo{
                 }
 
                 boost::asio::io_service& io_service_;
-                tcp::acceptor acceptor_;
+                tcp::acceptor acceptor_;                
 
         };
 

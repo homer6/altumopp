@@ -3,8 +3,10 @@
 
 
 #include <boost/asio.hpp>
+#include <queue>
 
 #include "FastCgi/Server.h"
+#include "FastCgi/FastCgiRecord.h"
 
 namespace Altumo{
 
@@ -21,6 +23,8 @@ namespace Altumo{
 
         protected:
             boost::asio::io_service io_service;
+            //std::queue< FastCgiRecord* > record_queue;
+            //std::queue< FastCgiRecord* > aggregated_record_queue;
 
 
     };

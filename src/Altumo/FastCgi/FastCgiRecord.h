@@ -29,7 +29,8 @@ namespace Altumo{
                 ~FastCgiRecord();
 
             protected:
-                FastCgiRecordType type;
+                uint16_t request_id;
+                FastCgiRecordType type;                
                 uint32_t data_size;
                 char *data;
 

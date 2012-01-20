@@ -16,7 +16,7 @@ namespace Altumo{
                 Request();
                 ~Request();
 
-                std::map headers;
+                std::map< std::string, std::string > headers;
                 string body;
                 bool asynchronous;
 

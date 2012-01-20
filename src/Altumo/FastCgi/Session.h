@@ -6,6 +6,8 @@
 #include <boost/bind.hpp>
 #include <boost/asio.hpp>
 #include <fstream>
+#include <string>
+#include <queue>
 
 using boost::asio::ip::tcp;
 
@@ -98,6 +100,8 @@ namespace Altumo{
                 enum { max_length = 1024 };
                 char data_[max_length];
                 std::ofstream output_log;
+
+                std::queue< std::string > raw_socket_queue;
 
         };
 
