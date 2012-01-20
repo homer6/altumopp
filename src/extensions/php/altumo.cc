@@ -2,13 +2,20 @@
 
 
 
+
+static function_entry altumo_functions[] = {
+    PHP_FE(altumo_run, NULL)
+    {NULL, NULL, NULL}
+};
+
+
 zend_module_entry altumo_module_entry = {
 
     #if ZEND_MODULE_API_NO >= 20010901
         STANDARD_MODULE_HEADER,
     #endif
     PHP_ALTUMO_EXTNAME,
-    NULL, /* functions */
+    altumo_functions, /* functions */
     NULL, /* MINIT */
     NULL, /* MSHUTDOWN */
     NULL, /* RINIT */
@@ -22,6 +29,15 @@ zend_module_entry altumo_module_entry = {
 };
 
 
-#ifdef COMPILE_DL_SAMPLE
-    ZEND_GET_MODULE(altumo)
+#ifdef COMPILE_DL_ALTUMO
+    extern "C" {
+        ZEND_GET_MODULE(altumo)
+    }
 #endif
+
+
+
+PHP_FUNCTION(altumo_run)
+{
+    RETURN_STRING("Altumo RUN", 1);
+}

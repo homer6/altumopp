@@ -9,7 +9,9 @@
     #endif
 
 
-    #include "php.h"
+    extern "C" {
+        #include "php.h"
+    }
 
     extern zend_module_entry altumo_module_entry;
     #define phpext_altumo_ptr &altumo_module_entry
