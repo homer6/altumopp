@@ -51,7 +51,7 @@ int main()
    try
    {
       Fastcgipp::Manager<HelloWorld> fcgi;
-//      fcgi.handler();
+      fcgi.handler();
    }
    catch(std::exception& e)
    {

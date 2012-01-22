@@ -1,15 +1,24 @@
 include_directories( ./fastcgi )
 
+# set(fastcgipp_lib)
+link_directories( "./fastcgi/fastcgi++/fastcgi++-1.2/lib" )
 
 #file( GLOB sources *.cc )
 #file( GLOB fastcgi_sources ./fastcgi/libfcgi/fcgio.cpp ./fastcgi/libfcgi/fcgi_stdio.c ./fastcgi/libfcgi/fcgiapp.c ./fastcgi/libfcgi/os_unix.c )
+
 add_executable( ../webapp ./server/main3.cc )
+
+#find_library(FASTCGIPP fastcgipp PATHS ./fastcgi/fastcgi++/fastcgi++-1.2/lib )
 
 #add_executable( ../geoip ./client/main.cc ${sources} )
 
+
+
 find_package( Boost 1.40 COMPONENTS system program_options regex thread REQUIRED )
 include_directories( ${Boost_INCLUDE_DIR} )
-target_link_libraries( ../webapp ${Boost_LIBRARIES} )
+
+
+target_link_libraries( ../webapp ${Boost_LIBRARIES} fastcgipp )
 
 
 
