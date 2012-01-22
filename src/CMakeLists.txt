@@ -1,9 +1,9 @@
-include_directories( ./fastcgi/include )
+include_directories( ./fastcgi )
 
 
 #file( GLOB sources *.cc )
 #file( GLOB fastcgi_sources ./fastcgi/libfcgi/fcgio.cpp ./fastcgi/libfcgi/fcgi_stdio.c ./fastcgi/libfcgi/fcgiapp.c ./fastcgi/libfcgi/os_unix.c )
-add_executable( ../webapp ./server/main.cc )
+add_executable( ../webapp ./server/main3.cc )
 
 #add_executable( ../geoip ./client/main.cc ${sources} )
 
